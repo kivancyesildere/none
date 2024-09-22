@@ -1,5 +1,4 @@
-
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from tensorflow.keras.models import load_model
 import numpy as np
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
@@ -27,6 +26,11 @@ def predict_ethnicity(image_path):
     prediction = model.predict(img_array)
     predicted_class = np.argmax(prediction)
     return ethnic_labels[predicted_class]
+
+# Ana sayfa route'u
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 # Tahmin endpointi
 @app.route('/predict', methods=['POST'])
